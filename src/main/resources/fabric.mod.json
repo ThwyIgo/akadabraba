@@ -1,0 +1,49 @@
+{
+	"schemaVersion": 1,
+	"id": "akadabraba",
+	"version": "${version}",
+	"name": "Akadabraba",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		{
+			"name": "ThwyIgo",
+			"contact": {
+				"email": "thiagopachecorocha@hotmail.com"
+			}
+		}
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "GPL-3.0-or-later",
+	"icon": "assets/akadabraba/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.thwy.akadabraba.Akadabraba"
+		],
+		"client": [
+			"net.thwy.akadabraba.AkadabrabaClient"
+		],
+		"fabric-datagen": [
+			"net.thwy.akadabraba.AkadabrabaDataGenerator"
+		]
+	},
+	"mixins": [
+		"akadabraba.mixins.json",
+		{
+			"config": "akadabraba.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.1",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
