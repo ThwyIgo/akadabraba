@@ -23,7 +23,7 @@ public class ModItems {
     @Register(model = "GENERATED")
     public static final Item spell = new Item(new FabricItemSettings().maxCount(1));
 
-    @Register(name = "akadabraba")
+    @Register
     public static final ItemGroup AKADABRABA = FabricItemGroup.builder()
             .icon(() -> new ItemStack(spell))
             .displayName(Text.translatable("itemGroup." + Akadabraba.MOD_ID + ".akadabraba"))
@@ -34,12 +34,12 @@ public class ModItems {
     public static void register() {
         Akadabraba.LOGGER.info("Registering ModItens");
 
-        final List<Field> regItemFields = Arrays.stream(ModItems.class.getDeclaredFields())
+        final List<Field> regFields = Arrays.stream(ModItems.class.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(Register.class)
                         && Modifier.isStatic(field.getModifiers())
                 ).toList();
 
-        for (Field field : regItemFields) {
+        for (Field field : regFields) {
             Object value;
             try {
                 value = field.get(null);
@@ -50,6 +50,7 @@ public class ModItems {
             String name = annotation.name();
             if (name.isEmpty())
                 name = field.getName();
+            name = name.toLowerCase();
 
             // Register ItemGroup
             if (value instanceof ItemGroup ig)

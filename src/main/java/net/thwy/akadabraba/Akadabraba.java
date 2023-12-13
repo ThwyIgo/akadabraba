@@ -15,5 +15,6 @@ public class Akadabraba implements ModInitializer {
         // Proceed with mild caution.
 
         ModItems.register();
+        ModBlocks.register();
     }
 }
