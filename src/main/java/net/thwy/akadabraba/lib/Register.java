@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 public @interface Register {
     String name() default "";
 
-    String model(); // Matches the name of a field in net.minecraft.data.client.Model
+    String model() default ""; // Matches the name of a field in net.minecraft.data.client.Model
 }

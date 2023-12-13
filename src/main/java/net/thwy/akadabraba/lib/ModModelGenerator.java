@@ -25,6 +25,10 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModels.add(new pair<>(item, model));
     }
 
+    public static void add(Block block, Function<BlockStateModelGenerator, Consumer<Block>> f) {
+        blockModels.add(new pair<>(block, f));
+    }
+
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockModels.forEach(pair -> pair.second.apply(blockStateModelGenerator).accept(pair.first));
