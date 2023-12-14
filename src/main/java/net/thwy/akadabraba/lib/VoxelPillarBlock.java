@@ -11,7 +11,9 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
 public class VoxelPillarBlock extends Block {
@@ -21,7 +23,7 @@ public class VoxelPillarBlock extends Block {
 
     public VoxelPillarBlock(Settings settings) {
         super(settings);
-        //setDefaultState(getStateManager().getDefaultState().with(UP, false).with(DOWN, false));
+        setDefaultState(getStateManager().getDefaultState().with(UP, false).with(DOWN, false));
     }
 
     @Nullable
@@ -29,13 +31,24 @@ public class VoxelPillarBlock extends Block {
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState state = this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
 
+        // Is setting UP and DOWN needed here? getStateForNeighborUpdate() should already take care of it
         final World worldView = ctx.getWorld();
         final BlockPos blockPos = ctx.getBlockPos();
-        final Block blockAbove = worldView.getBlockState(blockPos.up()).getBlock();
         final Block blockBelow = worldView.getBlockState(blockPos.down()).getBlock();
+        final Block blockAbove = worldView.getBlockState(blockPos.up()).getBlock();
 
+        state = state.with(DOWN, blockBelow instanceof VoxelPillarBlock);
         state = state.with(UP, blockAbove instanceof VoxelPillarBlock);
-            state = state.with(DOWN, blockBelow instanceof  VoxelPillarBlock);
+
+        return state;
+    }
+
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+        if (direction.equals(Direction.UP))
+            state = state.with(UP, neighborState.getBlock() instanceof VoxelPillarBlock);
+        if (direction.equals(Direction.DOWN))
+            state = state.with(DOWN, neighborState.getBlock() instanceof VoxelPillarBlock);
 
         return state;
     }
