@@ -9,6 +9,7 @@ public class AkadabrabaDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
+        ModBlocks.generateBlockStateModels();
         pack.addProvider(ModModelGenerator::new);
     }
 }
