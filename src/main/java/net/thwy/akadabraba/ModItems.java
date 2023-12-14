@@ -77,10 +77,10 @@ public class ModItems {
             if (m instanceof Model)
                 ModModelGenerator.add(item, (Model) m);
             else {
-                throw new RuntimeException("Model generation failed for " + annotation.model());
+                throw new RuntimeException("Item Model generation failed for " + annotation.model());
             }
         } catch (NoSuchFieldException e) {
-            throw new RuntimeException("There's no model named " + annotation.model());
+            throw new RuntimeException("There's no Item Model named " + annotation.model());
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }

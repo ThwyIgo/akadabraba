@@ -11,6 +11,9 @@ public @interface Register {
     String name() default "";
 
     // Matches the name of a field in net.minecraft.data.client.Model
-    // Item exclusive
+    // Some additional values are listed below
     String model() default "";
+    /* Additional models for blocks:
+       Y_ROTATE
+     */
 }

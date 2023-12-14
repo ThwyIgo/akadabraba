@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": {"model": "akadabraba:block/magical_quartz_pillar"},
-    "facing=east": {"model": "akadabraba:block/magical_quartz_pillar", "y": 90},
-    "facing=south": {"model": "akadabraba:block/magical_quartz_pillar", "y": 180},
-    "facing=west": {"model": "akadabraba:block/magical_quartz_pillar", "y": 270}
-  }
-}
