@@ -19,5 +19,13 @@
 				"down": {"uv": [9, 0, 6, 3], "texture": "#0"}
 			}
 		}
+	],
+	"groups": [
+		{
+			"name": "VoxelShapes",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"children": [0]
+		}
 	]
 }

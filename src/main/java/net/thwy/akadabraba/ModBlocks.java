@@ -12,7 +12,6 @@ import net.minecraft.util.math.Direction;
 import net.thwy.akadabraba.lib.BlockState;
 import net.thwy.akadabraba.lib.ModModelGenerator;
 import net.thwy.akadabraba.lib.Register;
-import net.thwy.akadabraba.lib.VoxelPillarBlock;
 import org.apache.commons.lang3.function.TriFunction;
 
 import java.lang.reflect.Field;
@@ -24,9 +23,11 @@ import java.util.function.Consumer;
 
 public class ModBlocks {
     @Register
-    public static Block MAGICAL_QUARTZ_PILLAR = new VoxelPillarBlock(FabricBlockSettings
-            .copyOf(Blocks.QUARTZ_PILLAR).nonOpaque());
+    public static Block MAGICAL_QUARTZ_PILLAR = new MagicalPillarBlock(FabricBlockSettings
+            .copyOf(Blocks.QUARTZ_PILLAR)
+            .nonOpaque());
 
+    // Used by client
     public static final Block[] CUTOUT_BLOCKS = {MAGICAL_QUARTZ_PILLAR};
 
     public static void register() {

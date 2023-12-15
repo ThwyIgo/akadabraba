@@ -1,5 +1,5 @@
-* Dependencies
-- libGL
+#+TITLE: Akadabraba
+#+AUTHOR: ThwyIgo
 
 * License
 All files in src/java/ are licensed under GPL-3.0-or-later. Other files remain

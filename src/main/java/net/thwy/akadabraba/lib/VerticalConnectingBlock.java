@@ -16,12 +16,15 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-public class VoxelPillarBlock extends Block {
+/* If there's a VerticalConnectingBlock above this block in the world, UP will be true.
+   If there's a VerticalConnectingBlock below this block in the world, DOWN will be true.
+ */
+public class VerticalConnectingBlock extends Block {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty UP = ConnectingBlock.UP;
     public static final BooleanProperty DOWN = ConnectingBlock.DOWN;
 
-    public VoxelPillarBlock(Settings settings) {
+    public VerticalConnectingBlock(Settings settings) {
         super(settings);
         setDefaultState(getStateManager().getDefaultState().with(UP, false).with(DOWN, false));
     }
@@ -37,8 +40,8 @@ public class VoxelPillarBlock extends Block {
         final Block blockBelow = worldView.getBlockState(blockPos.down()).getBlock();
         final Block blockAbove = worldView.getBlockState(blockPos.up()).getBlock();
 
-        state = state.with(DOWN, blockBelow instanceof VoxelPillarBlock);
-        state = state.with(UP, blockAbove instanceof VoxelPillarBlock);
+        state = state.with(DOWN, blockBelow instanceof VerticalConnectingBlock);
+        state = state.with(UP, blockAbove instanceof VerticalConnectingBlock);
 
         return state;
     }
@@ -46,9 +49,9 @@ public class VoxelPillarBlock extends Block {
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (direction.equals(Direction.UP))
-            state = state.with(UP, neighborState.getBlock() instanceof VoxelPillarBlock);
+            state = state.with(UP, neighborState.getBlock() instanceof VerticalConnectingBlock);
         if (direction.equals(Direction.DOWN))
-            state = state.with(DOWN, neighborState.getBlock() instanceof VoxelPillarBlock);
+            state = state.with(DOWN, neighborState.getBlock() instanceof VerticalConnectingBlock);
 
         return state;
     }
