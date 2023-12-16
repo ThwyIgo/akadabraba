@@ -7,9 +7,10 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface BlockState {
-    /* Models for blocks:
+public @interface ModelGen {
+    // If applied to an Item, Matches the name of a field in net.minecraft.data.client.Model
+    /* If applied to a Block, it is one of:
        Y_ROTATE
      */
-    String model();
+    String value();
 }

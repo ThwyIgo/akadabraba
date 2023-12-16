@@ -9,7 +9,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Register {
     String name() default "";
-
-    // Matches the name of a field in net.minecraft.data.client.Model
-    String model() default "";
 }
