@@ -9,6 +9,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.thwy.akadabraba.lib.ModBlockLootTables;
 import net.thwy.akadabraba.lib.ModModelGenerator;
 import net.thwy.akadabraba.lib.Register;
 import org.apache.commons.lang3.function.TriFunction;
@@ -27,8 +28,13 @@ public class ModBlocks {
     // Used by client
     public static final Block[] CUTOUT_BLOCKS = {MAGICAL_QUARTZ_PILLAR};
 
+    protected static final ModBlockLootTables.DropMap[] BLOCK_DROPS = {
+            new ModBlockLootTables.DropMap(MAGICAL_QUARTZ_PILLAR, Blocks.QUARTZ_PILLAR)
+    };
+
     static {
         ModModelGenerator.add(ModBlocks.class);
+        ModBlockLootTables.add(List.of(BLOCK_DROPS));
     }
 
     public static void register() {
