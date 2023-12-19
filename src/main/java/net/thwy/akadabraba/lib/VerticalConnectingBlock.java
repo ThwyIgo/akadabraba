@@ -49,9 +49,9 @@ public class VerticalConnectingBlock extends Block {
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         if (direction.equals(Direction.UP))
-            state = state.with(UP, neighborState.getBlock() instanceof VerticalConnectingBlock);
+            state = state.with(UP, neighborState.isOf(this));
         if (direction.equals(Direction.DOWN))
-            state = state.with(DOWN, neighborState.getBlock() instanceof VerticalConnectingBlock);
+            state = state.with(DOWN, neighborState.isOf(this));
 
         return state;
     }
