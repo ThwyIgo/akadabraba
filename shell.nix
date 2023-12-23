@@ -7,6 +7,7 @@ pkgs.mkShell {
                  openal
                  alsa-lib
                  flite
+                 udev
                ])}";
     idea-community && exit
   '';
