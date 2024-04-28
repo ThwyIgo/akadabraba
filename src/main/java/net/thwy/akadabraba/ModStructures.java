@@ -16,6 +16,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -72,17 +73,16 @@ public class ModStructures {
     public static void register() {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             BlockPos pos = hitResult.getBlockPos();
-            // What if the player is holding shift but not crouching? i.g. swimming or flying
             if (!world.isClient &&
+                    !player.shouldCancelInteraction() &&
                     world.getBlockState(pos).isOf(Blocks.ENCHANTING_TABLE)) {
                 final BlockPattern.Result result = SMALL_ALTAR.searchAround(world, pos.down());
                 if (result != null) {
                     BlockPos frontTopLeft = result.getFrontTopLeft();
                     BlockPos backBottomRight = frontTopLeft.add(-4, +4, -4);
 
-                    final var commandManager = world.getServer().getCommandManager();
-                    final var dispatcher = commandManager.getDispatcher();
-                    final var source = world.getServer().getCommandSource();
+                    final var commandManager = Objects.requireNonNull(world.getServer()).getCommandManager();
+                    final var source = world.getServer().getCommandSource().withSilent();
 
                     // Replace blocks with their magical version
                     final String command = "fill "
@@ -94,7 +94,7 @@ public class ModStructures {
                             + " replace "
                             + Registries.BLOCK.getId(Blocks.QUARTZ_PILLAR);
 
-                    commandManager.execute(dispatcher.parse(command, source), command);
+                    commandManager.executeWithPrefix(source, command);
                     return ActionResult.SUCCESS;
                 }
             }
@@ -102,6 +102,7 @@ public class ModStructures {
         });
     }
 
+    @SafeVarargs
     private static Predicate<CachedBlockPosition> is(Block block, Function<BlockStatePredicate, BlockStatePredicate>... withs) {
         BlockStatePredicate predicate = BlockStatePredicate.forBlock(block);
 
