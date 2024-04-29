@@ -4,16 +4,18 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.registry.RegistryWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class ModBlockLootTables extends FabricBlockLootTableProvider {
     private static final List<DropMap> BLOCK_DROPS = new ArrayList<>();
 
-    public ModBlockLootTables(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    public ModBlockLootTables(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     public static void add(Collection<DropMap> dropMaps) {

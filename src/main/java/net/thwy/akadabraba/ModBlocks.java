@@ -1,6 +1,6 @@
 package net.thwy.akadabraba;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
@@ -22,8 +22,8 @@ import java.util.function.BiFunction;
 
 public class ModBlocks {
     @Register
-    public static Block MAGICAL_QUARTZ_PILLAR = new MagicalPillarBlock(FabricBlockSettings
-            .copyOf(Blocks.QUARTZ_PILLAR)
+    public static Block MAGICAL_QUARTZ_PILLAR = new MagicalPillarBlock(AbstractBlock.Settings
+            .copy(Blocks.QUARTZ_PILLAR)
             .nonOpaque());
     // Used by client
     public static final Block[] CUTOUT_BLOCKS = {MAGICAL_QUARTZ_PILLAR};
@@ -56,10 +56,9 @@ public class ModBlocks {
                 name = field.getName();
             name = name.toLowerCase();
 
-            if (value instanceof Block b) {
-                registerBlock(b, name);
-            } else {
-                throw new IllegalArgumentException("I don't know how to register object " + value);
+            switch (value) {
+                case Block b -> registerBlock(b, name);
+                default -> throw new IllegalArgumentException("I don't know how to register object " + value);
             }
         }
 
@@ -90,7 +89,7 @@ public class ModBlocks {
                         .put(VariantSettings.Y, rotations[i])
                         .put(VariantSettings.MODEL, ModelIds.getBlockModelId(MAGICAL_QUARTZ_PILLAR).withSuffixedPath(suffix));
 
-        Akadabraba.LOGGER.info(ModelIds.getBlockModelId(MAGICAL_QUARTZ_PILLAR).toString());
+        Akadabraba.LOGGER.debug(ModelIds.getBlockModelId(MAGICAL_QUARTZ_PILLAR).toString());
 
         for (int i = 0; i < directions.length; i++) {
             supplier.with(whenHelper.apply(i, false, false),

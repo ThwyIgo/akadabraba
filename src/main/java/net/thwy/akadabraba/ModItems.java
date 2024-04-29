@@ -1,6 +1,5 @@
 package net.thwy.akadabraba;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -21,7 +20,7 @@ import java.util.List;
 public class ModItems {
     @Register
     @ModelGen("GENERATED")
-    public static final Item spell = new Item(new FabricItemSettings().maxCount(1));
+    public static final Item spell = new Item(new Item.Settings().maxCount(1));
     @Register
     public static final ItemGroup AKADABRABA = FabricItemGroup.builder()
             .icon(() -> new ItemStack(spell))
@@ -53,12 +52,10 @@ public class ModItems {
                     : annotation.name()
             ).toLowerCase();
 
-            if (value instanceof ItemGroup ig)
-                registerItemGroup(ig, name);
-            else if (value instanceof Item i)
-                registerItem(i, name);
-            else {
-                throw new IllegalArgumentException("I don't know how to register object " + value);
+            switch (value) {
+                case Item i -> registerItem(i, name);
+                case ItemGroup ig -> registerItemGroup(ig, name);
+                default -> throw new IllegalArgumentException("I don't know how to register object " + value);
             }
         }
     }

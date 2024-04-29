@@ -1,14 +1,18 @@
 { pkgs ? import <nixpkgs> {} }:
+with pkgs;
+mkShell {
+  buildInputs = [ jdk21 ];
+  packages = [ jetbrains.idea-community gradle ];
 
-pkgs.mkShell {
   shellHook = ''
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath (with pkgs; [
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [
                  libGL
                  openal
                  alsa-lib
                  flite
                  udev
-               ])}";
-    idea-community && exit
+               ]}";
+    idea-community &disown
+    exit
   '';
 }
