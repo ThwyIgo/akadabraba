@@ -1,6 +1,5 @@
 package net.thwy.akadabraba.item;
 
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
@@ -41,11 +40,7 @@ public class BlinkSpellItem extends Item {
         final BlockPos blockPos = context.getBlockPos();
         final PlayerEntity player = context.getPlayer();
 
-        if (!context.getWorld().isClient() && player != null &&
-                blockPos.isWithinDistance(player.getPos(),
-                        // +sqrt(2)/2 because you might reach the block's face, but not it's center.
-                        player.getAttributeValue(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE) + Math.sqrt(2) / 2)) {
-
+        if (!context.getWorld().isClient() && player != null) {
             final Vec3d distance = player.getPos().negate().add(blockPos.getX(), blockPos.getY(), blockPos.getZ());
             final Optional<Vec3d> newPos = searchSpot(player.getPos(), distance, context.getWorld(), 15);
             if (newPos.isPresent()) {

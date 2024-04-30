@@ -24,6 +24,7 @@ public class ModItems {
     @ModelGen("GENERATED")
     public static final Item spell = new Item(new Item.Settings().maxCount(1));
     @Register
+    @ModelGen("GENERATED")
     public static final BlinkSpellItem blinkSpell = new BlinkSpellItem(new Item.Settings().maxCount(1));
     @Register
     public static final ItemGroup AKADABRABA = FabricItemGroup.builder()

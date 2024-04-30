@@ -2,9 +2,6 @@
 #+AUTHOR: ThwyIgo
 
 * License
-All files in src/java/ are licensed under GPL-3.0-or-later. Other files remain
-unlicensed for now.
-
 Akadabraba Minecraft mod
 Copyright (C) 2024 Thiago Pacheco Rocha
 
