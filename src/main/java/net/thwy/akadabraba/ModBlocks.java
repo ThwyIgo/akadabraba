@@ -22,7 +22,7 @@ import java.util.function.BiFunction;
 
 public class ModBlocks {
     @Register
-    public static Block MAGICAL_QUARTZ_PILLAR = new MagicalPillarBlock(AbstractBlock.Settings
+    public static final Block MAGICAL_QUARTZ_PILLAR = new MagicalPillarBlock(AbstractBlock.Settings
             .copy(Blocks.QUARTZ_PILLAR)
             .nonOpaque());
     // Used by client
