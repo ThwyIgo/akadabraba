@@ -1,4 +1,4 @@
-package net.thwy.akadabraba;
+package net.thwy.akadabraba.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.Item;
@@ -8,6 +8,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.thwy.akadabraba.Akadabraba;
 import net.thwy.akadabraba.lib.ModModelGenerator;
 import net.thwy.akadabraba.lib.ModelGen;
 import net.thwy.akadabraba.lib.Register;
@@ -16,16 +17,21 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ModItems {
     @Register
     @ModelGen("GENERATED")
     public static final Item spell = new Item(new Item.Settings().maxCount(1));
     @Register
+    public static final BlinkSpellItem blinkSpell = new BlinkSpellItem(new Item.Settings().maxCount(1));
+    @Register
     public static final ItemGroup AKADABRABA = FabricItemGroup.builder()
             .icon(() -> new ItemStack(spell))
             .displayName(Text.translatable("itemGroup." + Akadabraba.MOD_ID + ".akadabraba"))
-            .entries((context, entries) -> entries.add(spell))
+            .entries((context, entries) -> entries.addAll(
+                    Stream.of(spell, blinkSpell)
+                            .map(ItemStack::new).toList()))
             .build();
 
     static {

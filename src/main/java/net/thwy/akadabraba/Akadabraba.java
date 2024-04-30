@@ -1,6 +1,7 @@
 package net.thwy.akadabraba;
 
 import net.fabricmc.api.ModInitializer;
+import net.thwy.akadabraba.item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
